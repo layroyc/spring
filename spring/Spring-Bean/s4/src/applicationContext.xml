@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 配置myconnect相关信息 -->
+	<bean id="conn" class="com.hp.factory.MyConnect"></bean>
+	
+	<!-- 配置Order相关信息 -->
+	<!-- 
+	<bean id="order" class="com.hp.entity.Order" scope="prototype"></bean>多例
+	<bean id="order" class="com.hp.entity.Order" scope="singleton"></bean>单例
+	 -->
+	<bean id="order" class="com.hp.entity.Order"></bean>
+	<!-- 配置user相关信息 -->
+	<bean id="user" class="com.hp.entity.User"></bean>
+</beans>

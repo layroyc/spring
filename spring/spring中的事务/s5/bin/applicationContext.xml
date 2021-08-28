@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+      xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+	<!-- 配置JdbcTemplate相关信息 -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- 配置UserDaoImpl相关信息 -->
+	<bean id="userDao" class="com.hp.dao.UserDaoImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<bean id="serviceDao" class="com.hp.service.ServiceDaoImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	<!-- 配置数据源类相关信息 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name = "driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/ssm?useUnicode=true&amp;characterEncoding=UTF-8"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	<!-- 引入spring的控制事务	（额外功能）代码 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!-- 控制事务需要连接  创建连接需要数据源 -->
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- 配置关于事务的属性		事务-对象-属性描述 -->
+	<tx:advice id="dstm" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- 描述的是给add方法上添加事务 -->
+			<!-- <tx:method name="regist"></tx:method> -->
+			<tx:method name="m*"></tx:method>
+		</tx:attributes>
+	</tx:advice>
+	<!-- 定义切点 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* com.hp.service..*.*(..))" id="pc"></aop:pointcut>
+		<aop:advisor advice-ref="dstm" pointcut-ref="pc"></aop:advisor>
+	</aop:config>
+</beans>

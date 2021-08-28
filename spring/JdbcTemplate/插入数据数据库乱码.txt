@@ -1,0 +1,2 @@
+url后拼接
+?useUnicode=true&amp;characterEncoding=UTF-8

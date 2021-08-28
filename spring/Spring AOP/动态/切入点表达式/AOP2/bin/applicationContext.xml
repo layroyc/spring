@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<!-- 配置原始类的相关信息 -->
+	<bean id="userService" class="com.hp.dynamicproxy.UserServiceImpl"></bean>
+	<bean id="orderService" class="com.hp.dynamicproxy.OrderServiceImpl"></bean>
+	<!-- 配置额外功能的相关信息 -->
+	<bean id="proxy" class="com.hp.dynamicproxy.Proxy"></bean>
+	<!-- 定义切点 -->
+	<aop:config>
+		<!-- 书写切点 -->
+			<!-- 方法切入点 -->
+		<!-- <aop:pointcut id="pr" expression="execution(* *(..))"></aop:pointcut> -->
+		<!-- execution(* *(..)):给所有的方法添加对应 额外功能-->
+		<!-- <aop:pointcut id="pr" expression="execution(* regist(..))"></aop:pointcut> -->
+		<!-- execution(* regist(..))  为注册regist()方法添加额外功能 -->
+		<!-- <aop:pointcut id="pr" expression="execution(* regist(String))"></aop:pointcut> -->
+		<!-- execution(* regist(String))  为带有一个参数为String类型的regist()方法添加额外功能 -->
+		<!-- <aop:pointcut id="pr" expression="execution(* regist(String,String))"></aop:pointcut> -->
+		<!-- execution(* regist(String,String))  为带有两个参数为String类型的regist()方法添加额外功能 -->
+		<!-- <aop:pointcut id="pr" expression="execution(* regist(String,..))"></aop:pointcut> -->
+		<!-- execution(* regist(String,..))  第一个参数为String类型，其他都不管的regist()方法添加额外功能 -->
+			<!-- 类切入点 -->
+		<!-- <aop:pointcut id="pr" expression="execution(* *..UserServiceImpl.regist(..))"></aop:pointcut> -->
+		<aop:pointcut id="pr" expression="execution(* *..OrderServiceImpl.regist(..))"></aop:pointcut>
+		<!-- execution(* *..UserServiceImpl.regist(..))  为所有包及子包下的UserServiceImpl类中注册regist()方法添加额外功能 -->
+		
+		<!-- <aop:pointcut id="pr" expression="args(String)"></aop:pointcut> -->
+		
+		<!-- <aop:pointcut id="pr" expression="within(*..UserServiceImpl)"></aop:pointcut> -->
+		<!-- 组装切面 -->
+		<aop:advisor advice-ref="proxy" pointcut-ref="pr"></aop:advisor>
+		<!-- advice-ref: 添加哪一个额外功能     pointcut-ref:给那一个切入点添加 -->
+	</aop:config>
+</beans>

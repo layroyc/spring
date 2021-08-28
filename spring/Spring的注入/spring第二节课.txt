@@ -1,0 +1,75 @@
+spring注入
+注入：通过spring的配置文件，为对象的属性进行赋值
+set注入：
+	原理：通过调用该类的set方法进行属性的注入
+	注意：一定要为该类提供set方法
+①jdk类型
+	I.8种基本数据类型+string
+	<bean id="user" class="com.hp.entity.User">
+		<property name="id"><value>1</value></property>
+		<property name="username"><value>小王</value></property>
+		<property name="password"><value>123456</value></property>
+	</bean>
+	II.数组
+	<!-- 数组赋值 -->
+		<property name="array">
+			<array>
+				<value>1</value>
+				<value>2</value>
+				<value>3</value>
+			</array>
+		</property>	
+	III.List类型
+	<!-- list赋值 -->
+		<property name="list">
+			<list>
+				<value>小黑</value>
+				<value>小白</value>
+				<value>小花</value>
+				<value>小黑</value>
+			</list>
+		</property>
+	IV.Set类型
+	<!-- set赋值 -->
+		<property name="set">
+			<set>
+				<value>小黑</value>
+				<value>小白</value>
+				<value>小花</value>
+				<value>小黑</value>
+			</set>
+		</property>
+	V.Map类型
+	<!-- Map类型赋值 -->
+		<property name="map">
+			<map>
+				<entry>
+					<key><value>1</value></key>
+					<value>小黑</value>
+				</entry>
+				<entry>
+					<key><value>2</value></key>
+					<value>小白</value>
+				</entry>
+				<entry>
+					<key><value>3</value></key>
+					<value>小花</value>
+				</entry>
+			</map>
+		</property>
+	VI.Properties（特殊的Map集合 key和value都是String类型）
+	<!-- Properties类型 -->
+		<property name="props">
+			<props>
+				<prop key="username">小黑</prop>
+				<prop key="password">123456</prop>
+			</props>
+		</property>
+	VII.自建类型注入
+		<!-- 配置UserDaoImpl的相关信息 -->
+		<bean id="userDao" class="com.hp.dao.UserDaoImpl"></bean>
+		<!-- 配置UserServiceImpl的相关信息 -->
+		<bean id="userService" class="com.hp.service.UserServiceImpl">
+			<property name="userDao" ref="userDao"></property>
+			<!-- ref属性：指向UserDAO实现类对象的ID -->
+		</bean>

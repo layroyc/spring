@@ -1,0 +1,49 @@
+2.构造注入
+	原理：通过有参构造，为对象中的属性进行对应的注入
+	注意：必须提供有参构造
+	①<!-- index属性：有参构造方法中参数的下标 -->
+	<constructor-arg index="0">
+			<value>1</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>苹果</value>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>灵宝苹果真好吃</value>
+	</constructor-arg>
+	②<!-- name属性：属性的名字 -->
+	<constructor-arg name="id">
+			<value>1</value>
+		</constructor-arg>
+		<constructor-arg name="orderName">
+			<value>苹果</value>
+		</constructor-arg>
+		<constructor-arg name="describe">
+			<value>灵宝苹果真好吃</value>
+	</constructor-arg>
+	③<!-- type属性：根据属性的类型进行注入 -->
+		<constructor-arg type="java.lang.Integer">
+			<value>1</value>
+		</constructor-arg>
+		<constructor-arg type="java.lang.String">
+			<value>苹果</value>
+		</constructor-arg>
+		<constructor-arg type="java.lang.String">
+			<value>灵宝苹果真好吃</value>
+		</constructor-arg>
+3.自动注入	设置autowire标签
+
+	应用场景：主要应用在自建类型
+	I.autowire="byType"  根据类型进行对应的属性注入
+		<bean id="userService" class="com.hp.service.UserServiceImpl" autowire="byType"></bean>
+		扫描整个spring的配置文件，匹配与目标属性注入的相同类型，匹配到之后，自动为该属性进行注入。
+	II.autowire="byName" 根据名称进行对应的属性注入
+		<bean id="userService" class="com.hp.service.UserServiceImpl" autowire="byName"></bean>
+		扫描整个spring的配置文件，匹配与目标属性名称相同的ID，匹配完成后，把由该标签创建的对象，自动注入到属性中
+spring-core 核心模块
+IOC（Inverse of Control） 控制反转
+	控制：给对象中属性赋值的权利
+	反转：把对象中属性赋值的权利由代码反转到了spring的配置文件中
+	把给属性赋值的权利，由代码反转到了配置文件中
+DI（Dependency Injection） 依赖注入
+	概念：当一个类型需要另一个类型的时候，这两个类型就产生了依赖关系，那么我们就可以把其中的一个类型作为另一个类型的属性进行对应的注入。

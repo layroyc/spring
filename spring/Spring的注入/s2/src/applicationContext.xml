@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="user" class="com.hp.entity.User">
+		<!-- 8种基本数据类型+string转换 -->
+		<property name="id">
+			<value>1</value>
+		</property>
+		<property name="username">
+			<value>网易</value>
+		</property>
+		<property name="password">
+			<value>123456</value>
+		</property>
+		
+		<!-- 数组类型转换 -->
+		<property name="array">
+			<array>
+				<value>小李</value>
+				<value>小王</value>
+				<value>小易</value>
+			</array>
+		</property>
+		
+		<!-- list类型转换 -->
+		<property name="list">
+			<list>
+				<value>小李</value>
+				<value>小王</value>
+				<value>小易</value>
+				<value>小王</value>
+			</list>
+		</property>
+		
+		<!-- set类型转换 -->
+		<property name="set">
+			<set>
+				<value>小李</value>
+				<value>小王</value>
+				<value>小易</value>
+				<value>小王</value>
+			</set>
+		</property>
+		
+		<!-- map类型转换 -->
+		<property name="map">
+			<map>
+				<entry>
+					<key><value>1</value></key>
+					<value>小王</value>
+				</entry>
+				<entry>
+					<key><value>2</value></key>
+					<value>小源</value>
+				</entry>
+				<entry>
+					<key><value>3</value></key>
+					<value>小易</value>
+				</entry>
+			</map>
+		</property>
+		
+		<!-- Properties转换 -->
+		<property name="props">
+			<props>
+				<prop key="username">小蔡</prop>
+				<prop key="password">123456</prop>
+			</props>
+			
+		</property>
+	</bean>
+	<!-- 配置UserDaoImpl类相关信息 -->
+	<bean id="userDao" class="com.hp.dao.UserDaoImpl"></bean>
+	<!-- 配置UserServiceImpl类相关信息 -->
+	<bean id="userService" class="com.hp.service.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+</beans>

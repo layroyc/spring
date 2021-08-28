@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="order" class="com.hp.entity.Order">
+		<!-- index:根据有参构造的索引下标 -->
+		<!-- <constructor-arg index="0">
+			<value>1</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>小王</value>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>重庆</value>
+		</constructor-arg> -->
+		
+		<!-- name属性:根据属性的名字 -->
+		<constructor-arg name="id">
+			<value>1</value>
+		</constructor-arg>
+		<constructor-arg name="name">
+			<value>小王</value>
+		</constructor-arg>
+		<constructor-arg name="describe">
+			<value>重庆</value>
+		</constructor-arg>
+		
+		<!-- type属性:根据属性的类型进行注入 -->
+		<constructor-arg type="java.lang.Integer">
+			<value>1</value>
+		</constructor-arg>
+		<constructor-arg type="java.lang.String">
+			<value>小王</value>
+		</constructor-arg>
+		<constructor-arg type="java.lang.String">
+			<value>重庆</value>
+		</constructor-arg>
+	</bean>
+	<!-- 配置UserDaoImpl类相关信息 -->
+	<bean id="userDao" class="com.hp.dao.UserDaoImpl"></bean>
+	<!-- 配置UserServiceImpl类相关信息 -->
+	<!--<bean id="userService" class="com.hp.service.UserServiceImpl" autowire="byType"></bean>  -->
+	<bean id="userService" class="com.hp.service.UserServiceImpl" autowire="byName"></bean>
+</beans>

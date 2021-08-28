@@ -1,0 +1,41 @@
+Spring
+1.概念：一款轻量级的JAVAEE解决方案，众多优秀设计模式的组合
+作用：解耦合，目的是为了解决企业级应用开发的业务逻辑层和其他各层的耦合问题。
+Spring体系结构：
+	核心模块：
+		spring-beans、spring-core、spring-context、spring-SpEL
+	
+Spring开发步骤 -- 工厂设计模式
+1.搭建环境
+	①引入相关依赖
+	②引入配置文件
+2.spring相关API
+	ApplicationContext -- 工厂 -- 工厂设计模式
+	①接口 -- new 实现类 ClassPathXMLApplicationContext
+	②重量级资源 -- 内存多、功能多、线程安全
+3.Spring工厂创建对象的步骤
+	I.书写类
+	II.在Spring配置文件中配置该类的相关信息
+		<bean id="user" class="com.hp.entity.User"></bean>
+		id属性是唯一标识 class属性后面跟该类的全限定名
+	III.创建Spring工厂，构建对象
+		public class TestFactory {
+			@Test
+			public void testFa(){
+				//创建工厂
+				ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+				//创建对象
+				User user = (User) ac.getBean("user");
+				System.out.println(user);
+			}
+		}
+4.spring工厂构建对象的原理
+	<!--配置User类的相关信息-->
+	<bean id="user" class="com.hp.entity.User"></bean>
+	原理：I.读取配置文件，获取该类的全限定名
+			 com.hp.entity.User
+			 II.获取类对象
+			 Class userclazz = Class.forName("com.hp.entity.User");
+			 II.创建类对象
+			 Object object = userclazz.newInstance();
+			 User user = (User)object;
